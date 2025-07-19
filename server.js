@@ -41,8 +41,17 @@ function getAllConnectedClients(roomId) {
   );
 }
 
-// Configure Socket.IO (no CORS needed - same origin)
-const io = new Server(server);
+// Configure Socket.IO with CORS for development
+const io = new Server(server, {
+  cors: {
+    origin:
+      process.env.NODE_ENV === "production"
+        ? false
+        : ["http://localhost:3000", "http://127.0.0.1:3000"],
+    methods: ["GET", "POST"],
+    credentials: true,
+  },
+});
 
 app.use(express.json());
 
@@ -57,10 +66,12 @@ io.on("connection", (socket) => {
     console.log(`${username} joined the room with id: ${roomId}`);
 
     //  Send latest code to the user who just joined
-    const latestCode = roomCodeMap[roomId] || "";
-    setTimeout(() => {
-      io.to(socket.id).emit("sync-code", { code: latestCode });
-    }, 100);
+    const latestCode = roomCodeMap[roomId];
+    if (latestCode) {
+      setTimeout(() => {
+        io.to(socket.id).emit("sync-code", { code: latestCode });
+      }, 100);
+    }
 
     // Notify all clients about the new joiner
     const clients = getAllConnectedClients(roomId);
