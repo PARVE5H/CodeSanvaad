@@ -5,14 +5,13 @@
   "type": "module",
   "main": "server.js",
   "scripts": {
-    "start:front": "react-scripts start",
-    "start:": "npm run build ; npm server:prod",
+    "start": "react-scripts start",
     "build": "react-scripts build",
     "test": "react-scripts test",
     "eject": "react-scripts eject",
     "server:dev": "nodemon server.js",
     "server": "node server.js",
-    "dev": "concurrently \"npm run server\" \"npm start\"",
+    "dev": "concurrently \"npm run server:dev\" \"npm start\"",
     "install-all": "npm install"
   },
   "dependencies": {
