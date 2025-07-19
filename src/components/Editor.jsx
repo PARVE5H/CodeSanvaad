@@ -15,10 +15,8 @@ const EditorArea = ({ socketRef, roomId }) => {
 
     // Listen for initial sync (when joining a room)
     socket.on(ACTIONS.SYNC_CODE, ({ code }) => {
-      if (code !== "") {
-        isRemoteChange.current = true;
-        editorRef.current.setValue(code);
-      }
+      isRemoteChange.current = true;
+      editorRef.current.setValue(code);
     });
 
     // Listen for  real-time code change

@@ -6,13 +6,12 @@
   "main": "server.js",
   "scripts": {
     "start": "node server.js",
-    "build": "npm install  && npm run build:dev",
-    "start:dev": "react-scripts start",
-    "build:dev": "react-scripts  build",
-    "server:dev": "nodemon server.js",
+    "build": "react-scripts build",
+    "client": "react-scripts start",
+    "server": "nodemon server.js",
+    "dev": "concurrently \"npm run server\" \"npm run client\"",
     "test": "react-scripts test",
     "eject": "react-scripts eject",
-    "dev": "concurrently \"npm run server:dev\" \"npm start:dev\"",
     "install-all": "npm install"
   },
   "dependencies": {
