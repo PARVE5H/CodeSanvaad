@@ -44,6 +44,7 @@ const HomePage = () => {
         duration: 5000,
         closable: true,
       });
+      setLoading(false);
       return;
     }
     navigate(`/editor/${roomdId}`, {

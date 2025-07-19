@@ -8,8 +8,10 @@ import { fileURLToPath } from "url";
 import dotenv from "dotenv";
 
 const app = express();
+app.use(cors()); // Enable CORS for all routes
 const server = http.createServer(app);
 dotenv.config();
+
 const userSocketMap = {};
 const roomCodeMap = {}; // Store code for each room
 
@@ -17,7 +19,9 @@ const roomCodeMap = {}; // Store code for each room
 const __filename = fileURLToPath(import.meta.url);
 const __dirname1 = dirname(__filename);
 if (process.env.NODE_ENV === "production") {
-  app.use(express.static("build"));
+  // Serve static files from the build directory
+  app.use(express.static(path.join(__dirname1, "build")));
+
   // Handle React routing, return all requests to React app
   app.get(/^(?!\/api).*/, (req, res) => {
     res.sendFile(path.join(__dirname1, "build", "index.html"));
@@ -41,16 +45,17 @@ function getAllConnectedClients(roomId) {
   );
 }
 
-// Configure Socket.IO with CORS for development
+// Configure Socket.IO with CORS and timeout settings
 const io = new Server(server, {
   cors: {
     origin:
-      process.env.NODE_ENV === "production"
-        ? false
-        : ["http://localhost:3000", "http://127.0.0.1:3000"],
+      process.env.NODE_ENV === "production" ? "*" : "http://localhost:3000",
     methods: ["GET", "POST"],
     credentials: true,
   },
+  pingTimeout: 60000,
+  upgradeTimeout: 30000,
+  transports: ["websocket", "polling"],
 });
 
 app.use(express.json());

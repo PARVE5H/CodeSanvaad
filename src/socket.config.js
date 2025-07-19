@@ -8,8 +8,9 @@ export const initSocket = async () => {
     transports: ["websocket", "polling"], // Allow fallback to polling
   };
 
+  // Use relative path when deployed, fallback to localhost for development
   const backendUrl =
-    process.env.REACT_APP_BACKEND_URL || "http://localhost:5000";
+    process.env.NODE_ENV === "production" ? "/" : "http://localhost:5000";
 
   return io(backendUrl, options);
 };
