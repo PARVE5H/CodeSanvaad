@@ -12,6 +12,7 @@ import {
   Navigate,
 } from "react-router-dom";
 import { toaster } from "../components/ui/toaster";
+import { AlignJustify } from "lucide-react";
 
 const EditorPage = () => {
   const socketRef = useRef(null);
@@ -19,6 +20,7 @@ const EditorPage = () => {
   const { roomId } = useParams();
   const navigate = useNavigate();
   const [clients, setClients] = useState([]);
+  const [showSideBar, setShowSideBar] = useState(true);
 
   useEffect(() => {
     const init = async () => {
@@ -126,105 +128,136 @@ const EditorPage = () => {
 
   return (
     <>
-      <Box display={"flex"} width="100%" height={"100vh"} gap={1}>
+      <Box
+        display={"flex"}
+        width="100%"
+        height={"100vh"}
+        gap={1}
+        bg={"gray.950"}
+      >
+        {" "}
         <Box
-          width={{ base: "50%", md: "20%", lg: "12%" }}
-          bg={"gray.700"}
-          borderRightRadius={"xl"}
+          cursor={"pointer"}
+          position="fixed"
+          top="10px"
+          right="20px"
+          zIndex={9999}
+          borderRadius={"lg"}
+          bg={"gray.600"}
+          padding={1}
+          onClick={() => {
+            setShowSideBar(!showSideBar);
+          }}
         >
+          <AlignJustify />
+        </Box>
+        {showSideBar && (
           <Box
-            m={1}
-            p={2}
-            id="aside-inner"
-            height={"100%"}
-            display={"flex"}
-            flexDirection={"column"}
+            width={{ base: "50%", md: "20%" }}
+            maxWidth={{ base: "150px", md: "200px", lg: "220px" }}
+            bg={"gray.700"}
+            borderRightRadius={"xl"}
           >
             <Box
               m={1}
-              p={1}
+              p={2}
+              id="aside-inner"
+              height={"100%"}
               display={"flex"}
-              justifyContent={"start"}
-              flexWrap={"wrap"}
-              gap={2}
-              alignItems={"center"}
-              overflow={"hidden"}
+              flexDirection={"column"}
             >
-              <Image
-                height={"50px"}
-                width={"50px"}
-                src={logo}
-                alt="logo"
-              ></Image>
+              <Box
+                m={1}
+                p={1}
+                display={"flex"}
+                justifyContent={"start"}
+                flexWrap={"wrap"}
+                gap={2}
+                alignItems={"center"}
+                overflow={"hidden"}
+              >
+                <Image
+                  height={"50px"}
+                  width={"50px"}
+                  src={logo}
+                  alt="logo"
+                ></Image>
+                <Box
+                  display={"flex"}
+                  flexDirection={"column"}
+                  justifyContent={"center"}
+                  alignItems={"start"}
+                >
+                  <Text
+                    m={0}
+                    mb={-3}
+                    fontSize={"xl"}
+                    color={"#ffffff"}
+                    fontWeight={"semibold"}
+                  >
+                    Code
+                  </Text>
+                  <Text
+                    fontSize={"xl"}
+                    color={"#924a4c"}
+                    fontWeight={"semibold"}
+                  >
+                    Sanvaad
+                  </Text>
+                </Box>
+              </Box>
+              <Box as={"hr"} height={"2px"} background={"#fff"}></Box>
+
               <Box
                 display={"flex"}
-                flexDirection={"column"}
                 justifyContent={"center"}
-                alignItems={"start"}
+                flexDir={"column"}
+                marginTop={2}
+                marginBottom={2}
               >
-                <Text
-                  m={0}
-                  mb={-3}
-                  fontSize={"xl"}
+                <Button
+                  variant={"solid"}
+                  size={"md"}
+                  colorPalette={"white"}
+                  m={2}
+                  overflow={"hidden"}
+                  onClick={handleCopyRoomId}
+                  bg={"teal.500"}
                   color={"#fff"}
-                  fontWeight={"semibold"}
                 >
-                  Code
-                </Text>
-                <Text fontSize={"xl"} color={"#924a4c"} fontWeight={"semibold"}>
-                  Sanvaad
-                </Text>
+                  Copy ROOM ID
+                </Button>
+                <Button
+                  color={"#fff"}
+                  size={"md"}
+                  colorPalette={"red"}
+                  m={2}
+                  onClick={handleLeaveRoom}
+                >
+                  Leave
+                </Button>
+              </Box>
+              <Box as={"hr"} height={"2px"} background={"#fff"}></Box>
+
+              <Text m={2} fontSize={{ base: "xs", md: "lg" }} color={"#fff"}>
+                Connected - Clients
+              </Text>
+
+              <Box
+                display={"flex"}
+                flexWrap={"wrap"}
+                flex={1}
+                height={"0"}
+                overflowY={"auto"}
+                gap={1}
+              >
+                {clients.map((client) => (
+                  <Clients key={client.socketId} username={client.username} />
+                ))}
               </Box>
             </Box>
-            <hr></hr>
-
-            <Box
-              display={"flex"}
-              justifyContent={"center"}
-              flexDir={"column"}
-              marginTop={2}
-              marginBottom={2}
-            >
-              <Button
-                variant={"solid"}
-                size={"md"}
-                colorPalette={"white"}
-                m={2}
-                overflow={"hidden"}
-                onClick={handleCopyRoomId}
-              >
-                Copy ROOM ID
-              </Button>
-              <Button
-                size={"md"}
-                colorPalette={"red"}
-                m={2}
-                onClick={handleLeaveRoom}
-              >
-                Leave
-              </Button>
-            </Box>
-            <hr></hr>
-
-            <Text m={2} fontSize={{ base: "xs", md: "xl" }}>
-              Connected - Clients
-            </Text>
-
-            <Box
-              display={"flex"}
-              flexWrap={"wrap"}
-              flex={1}
-              height={"0"}
-              overflowY={"auto"}
-              gap={1}
-            >
-              {clients.map((client) => (
-                <Clients key={client.socketId} username={client.username} />
-              ))}
-            </Box>
           </Box>
-        </Box>
-
+        )}
         <Box
           flex={1}
           bg={"gray.900"}

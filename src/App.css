@@ -8,3 +8,10 @@
 ::-webkit-scrollbar-thumb:hover {
   background: #555;
 }
+.diagonal-gradient {
+  background: linear-CanvasGradient(
+    135deg,
+    #000000 20%,
+    #555555 80%
+  ) !important ;
+}

@@ -13,7 +13,7 @@ import { toaster } from "../components/ui/toaster";
 import logo from "../assets/logo.png";
 import { v4 as uuidv4 } from "uuid";
 import { useState } from "react";
-import { X } from "lucide-react";
+import { Copy, X } from "lucide-react";
 import { useNavigate } from "react-router-dom";
 const HomePage = () => {
   const [roomdId, setRoomId] = useState("");
@@ -61,6 +61,16 @@ const HomePage = () => {
     });
   };
 
+  const handleCopyRoom = () => {
+    if (!roomdId) return;
+    navigator.clipboard.writeText(roomdId);
+    toaster.create({
+      title: "ROOM ID copied successfully!",
+      type: "success",
+      duration: 2000,
+      closable: true,
+    });
+  };
   return (
     <>
       {/* Homepage Box  */}
@@ -71,7 +81,9 @@ const HomePage = () => {
         flexDirection={"column"}
         justifyContent={"center"}
         alignItems={"center"}
-        bg={"#000"}
+        bgGradient="to-br"
+        gradientFrom="#4b2324ff"
+        gradientTo="#0a0a0a"
       >
         {/* Form Box */}
         <Box
@@ -124,7 +136,11 @@ const HomePage = () => {
 
           {/* Input Form  */}
           <Fieldset.Root size={"md"} maxW={"lg"}>
-            <Fieldset.Legend fontSize={"xl"} textAlign={"center"}>
+            <Fieldset.Legend
+              color={"#fff"}
+              fontSize={"xl"}
+              textAlign={"center"}
+            >
               Join the Sanvaad
             </Fieldset.Legend>
             <Fieldset.Content>
@@ -138,8 +154,22 @@ const HomePage = () => {
                     variant={"subtle"}
                     placeholder="ROOM ID"
                     overflow={"hidden"}
+                    bg={"gray.900"}
+                    color={"gray.100"}
                   ></Input>{" "}
                   <Button
+                    bg={"gray.900"}
+                    color={"gray.500"}
+                    variant={"subtle"}
+                    onClick={handleCopyRoom}
+                    p={0}
+                    m={0}
+                  >
+                    <Copy />
+                  </Button>
+                  <Button
+                    bg={"gray.900"}
+                    color={"gray.500"}
                     variant={"subtle"}
                     onClick={() => {
                       setRoomId("");
@@ -147,8 +177,7 @@ const HomePage = () => {
                     p={0}
                     m={0}
                   >
-                    {" "}
-                    <X />{" "}
+                    <X />
                   </Button>
                 </Group>
               </Field.Root>
@@ -162,8 +191,12 @@ const HomePage = () => {
                     }}
                     variant={"subtle"}
                     placeholder="USERNAME"
+                    bg={"gray.900"}
+                    color={"gray.100"}
                   ></Input>
                   <Button
+                    bg={"gray.900"}
+                    color={"gray.500"}
                     variant={"subtle"}
                     onClick={() => {
                       setUsername("");
@@ -187,6 +220,7 @@ const HomePage = () => {
               }}
               onClick={joinRoom}
               loading={loading}
+              color={"#fff"}
             >
               Join
             </Button>
@@ -194,13 +228,14 @@ const HomePage = () => {
               display={"flex"}
               gap={1}
               justifyContent={"end"}
-              fontSize={"lg"}
+              fontSize={"md"}
+              color={"#fff"}
+              marginRight={2}
             >
-              Creare a{" "}
+              Create a{" "}
               <a onClick={createNewRoom} href="#" style={{ color: "#924a4c" }}>
                 new room
               </a>
-              .
             </Text>
           </Fieldset.Root>
         </Box>

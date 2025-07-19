@@ -24,6 +24,7 @@ const Clients = ({ username }) => {
         borderRadius={"lg"}
         p={1}
         bg="gray.500"
+        color={"#fff"}
         width={{ base: "60px", lg: "75px" }}
         height={"fit"}
         cursor={"pointer"}
@@ -58,13 +59,18 @@ const Clients = ({ username }) => {
         <Portal>
           <Dialog.Backdrop />
           <Dialog.Positioner m={3} p={3}>
-            <Dialog.Content borderRadius={"2xl"}>
+            <Dialog.Content
+              borderRadius={"2xl"}
+              bg={"gray.950"}
+              maxWidth={"400px"}
+            >
               <Dialog.Header>
-                <Dialog.Title fontSize={"xl"}>
+                <Dialog.Title fontSize={"xl"} color={"#fff"}>
                   {username}'s Profile
                 </Dialog.Title>
               </Dialog.Header>
               <Dialog.Body
+                color={"#fff"}
                 display={"flex"}
                 flexDirection={"column"}
                 justifyContent={"center"}
