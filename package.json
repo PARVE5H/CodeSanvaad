@@ -5,11 +5,13 @@
   "type": "module",
   "main": "server.js",
   "scripts": {
-    "start": "react-scripts start",
+    "start:front": "react-scripts start",
+    "start:": "npm run build ; npm server:prod",
     "build": "react-scripts build",
     "test": "react-scripts test",
     "eject": "react-scripts eject",
-    "server": "nodemon server.js",
+    "server:dev": "nodemon server.js",
+    "server:prod": "node server.js",
     "dev": "concurrently \"npm run server\" \"npm start\"",
     "install-all": "npm install"
   },

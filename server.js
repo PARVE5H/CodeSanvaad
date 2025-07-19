@@ -2,11 +2,23 @@ import express from "express";
 import http from "http";
 import { Server } from "socket.io";
 import cors from "cors";
+import path from "path";
+import { dirname } from "path";
+import { fileURLToPath } from "url";
 
 const app = express();
 const server = http.createServer(app);
 const userSocketMap = {};
 const roomCodeMap = {}; // Store code for each room
+
+//-----------Deployment----------------
+const __filename = fileURLToPath(import.meta.url);
+const __dirname = dirname(__filename);
+app.use(express.static("build"));
+app.use((req, res, next) => {
+  res.sendFile(path.join(__dirname, "build", "index.html"));
+});
+//-----------Deployment----------------
 
 function getAllConnectedClients(roomId) {
   return Array.from(io.sockets.adapter.rooms.get(roomId) || []).map(
@@ -19,29 +31,10 @@ function getAllConnectedClients(roomId) {
   );
 }
 
-// Configure CORS for Socket.IO
-const io = new Server(server, {
-  cors: {
-    origin: "http://localhost:3000", // Your React app URL
-    methods: ["GET", "POST"],
-    credentials: true,
-  },
-});
-
-// Enable CORS for Express routes
-app.use(
-  cors({
-    origin: "http://localhost:3000",
-    credentials: true,
-  })
-);
+// Configure Socket.IO (no CORS needed - same origin)
+const io = new Server(server);
 
 app.use(express.json());
-
-// Test route
-app.get("/", (req, res) => {
-  res.send("Socket.IO server is running!");
-});
 
 // Socket.IO connection handling
 io.on("connection", (socket) => {

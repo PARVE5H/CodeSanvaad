@@ -6,7 +6,6 @@ export const initSocket = async () => {
     reconnectionAttempts: Infinity,
     timeout: 10000,
     transports: ["websocket", "polling"], // Allow fallback to polling
-    withCredentials: true,
   };
 
   const backendUrl =
