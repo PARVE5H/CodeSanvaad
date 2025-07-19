@@ -78,7 +78,7 @@ code-sanvaad/
 
 1. Clone the repository
    ```bash
-   git clone https://github.com/PARVE5H/codesanvaad.git
+   git clone https://github.com/PARVE5H/CodeSanvaad.git
    cd codesanvaad
    ```
 
@@ -99,15 +99,19 @@ code-sanvaad/
 ## 📸 Screenshots
 
 ### Home Page
-![Home Page](./screenshots/home.png)
+<img width="1920" height="1020" alt="Screenshot 2025-07-19 202524" src="https://github.com/user-attachments/assets/3ac57cc3-6033-414d-8461-be60949fda1e" />
+
 *Landing page with room creation/joining options*
 
 ### Editor Page
-![Editor Page](./screenshots/editor.png)
+<img width="1920" height="1020" alt="Screenshot 2025-07-19 202545" src="https://github.com/user-attachments/assets/0be1e588-e624-4ef1-a484-5ddaffd8c6f0" />  <img width="1920" height="1020" alt="Screenshot 2025-07-19 202637" src="https://github.com/user-attachments/assets/f9e15562-7b1b-470a-9f60-7cdcd95f0fb5" />
+
 *Collaborative editor with real-time sync*
 
 ### Multiple Users
-![Multiple Users](./screenshots/users.png)
+<img width="1919" height="1020" alt="Screenshot 2025-07-19 203724" src="https://github.com/user-attachments/assets/d646758e-a616-40d6-a3bc-7e71edc800fd" />
+<img width="1919" height="1018" alt="Screenshot 2025-07-19 202947" src="https://github.com/user-attachments/assets/097a6798-45a1-42f9-9ae7-4d8978950a9e" />
+
 *Multiple users editing simultaneously*
 
 ## 🌟 Key Dependencies
