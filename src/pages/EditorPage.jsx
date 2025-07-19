@@ -154,7 +154,7 @@ const EditorPage = () => {
         {showSideBar && (
           <Box
             width={{ base: "50%", md: "20%" }}
-            maxWidth={{ base: "150px", md: "200px", lg: "220px" }}
+            maxWidth={{ base: "150px", md: "180px" }}
             bg={"gray.700"}
             borderRightRadius={"xl"}
           >
@@ -245,9 +245,11 @@ const EditorPage = () => {
 
               <Box
                 display={"flex"}
+                flexDirection={"row"}
+                alignItems={"flex-start"}
                 flexWrap={"wrap"}
-                flex={1}
-                height={"0"}
+                height={"auto"}
+                maxHeight={"50vh"}
                 overflowY={"auto"}
                 gap={1}
               >

@@ -75,7 +75,7 @@ io.on("connection", (socket) => {
     if (latestCode) {
       setTimeout(() => {
         io.to(socket.id).emit("sync-code", { code: latestCode });
-      }, 100);
+      }, 200);
     }
 
     // Notify all clients about the new joiner

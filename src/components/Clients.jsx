@@ -23,16 +23,18 @@ const Clients = ({ username }) => {
         alignItems={"center"}
         borderRadius={"lg"}
         p={1}
+        m={0}
         bg="gray.500"
         color={"#fff"}
         width={{ base: "60px", lg: "75px" }}
-        height={"fit"}
+        height={"75px"}
         cursor={"pointer"}
         onClick={() => {
           setShowClientDialogBox(true);
         }}
       >
         <Avatar.Root
+          m={0}
           colorPalette={pickPalette(username)}
           size="md"
           shape={"rounded"}
@@ -61,7 +63,7 @@ const Clients = ({ username }) => {
           <Dialog.Positioner m={3} p={3}>
             <Dialog.Content
               borderRadius={"2xl"}
-              bg={"gray.950"}
+              bg={"gray.800"}
               maxWidth={"400px"}
             >
               <Dialog.Header>
