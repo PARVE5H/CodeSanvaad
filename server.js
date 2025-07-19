@@ -5,19 +5,29 @@ import cors from "cors";
 import path from "path";
 import { dirname } from "path";
 import { fileURLToPath } from "url";
+import dotenv from "dotenv";
 
 const app = express();
 const server = http.createServer(app);
+dotenv.config();
 const userSocketMap = {};
 const roomCodeMap = {}; // Store code for each room
 
 //-----------Deployment----------------
 const __filename = fileURLToPath(import.meta.url);
-const __dirname = dirname(__filename);
-app.use(express.static("build"));
-app.use((req, res, next) => {
-  res.sendFile(path.join(__dirname, "build", "index.html"));
-});
+const __dirname1 = dirname(__filename);
+if (process.env.NODE_ENV === "production") {
+  app.use(express.static("build"));
+  // Handle React routing, return all requests to React app
+  app.get(/^(?!\/api).*/, (req, res) => {
+    res.sendFile(path.join(__dirname1, "build", "index.html"));
+  });
+} else {
+  app.get("/", (req, res) => {
+    res.send("API is Running");
+  });
+}
+
 //-----------Deployment----------------
 
 function getAllConnectedClients(roomId) {
